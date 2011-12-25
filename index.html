@@ -1,0 +1,89 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+	<title>Jeux des 7 familles</title> 
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+</head> 
+<body> 
+
+	<script language="javascript" type="text/javascript">
+	
+		
+		$(document).bind( "mobileinit", function() {
+			//Permet de faire des appels ajax cross domain
+			$.mobile.allowCrossDomainPages = true;
+		});
+		
+		//A lo fin du chargement de la page 		
+		 $("#homePage").live('pageinit',function() {
+			$('#goToPlayPage').click(function() {
+				//Récupération des cartes 
+				$.ajax({
+						  url: "http://test.fr.cly:9000/GestionJeux7Familles/recuperationCartes",
+						  context: document.body,
+						  dataType : "json",
+						  success: function(data){
+						    alert(data.msg);
+							$.mobile.changePage('#playPage');
+						  },
+						  error: function(jqXHR, textStatus, errorThrown){
+							alert(textStatus);
+						  }
+				});
+			});
+		});
+				
+	</script>
+
+	<div data-role="page" id="homePage">
+		<div data-role="header">
+			<h1>Jeux des 7 familles</h1>
+		</div><!-- /header -->
+
+		<div data-role="content">	
+			<p>
+				Bienvenue sur le jeux des 7 familles !<br/>
+				<a href="#" id="goToPlayPage" data-role="button" data-icon="arrow-r">Entrez</a>
+			</p>	
+			
+			<p>
+				<a href="#rulesPage">Consultez les règles du jeux</a>
+			</p>			
+		</div><!-- /content -->
+
+	</div><!-- /page -->
+	
+	
+	<div data-role="page" id="rulesPage">
+		<div data-role="header">
+			<h1>Jeux des 7 familles</h1>
+		</div><!-- /header -->
+
+		<div data-role="content">	
+			<p>
+				Voici les règles du jeux !
+			</p>
+			<p>
+				<a href="#homePage">Retour à la page d'accueil</a>
+			</p>
+		</div><!-- /content -->
+
+	</div><!-- /page -->
+	
+	
+	<div data-role="page" id="playPage">
+		<div data-role="header">
+			<h1>Jeux des 7 familles</h1>
+		</div><!-- /header -->
+
+		<div data-role="content">	
+			Voici vos cartes !<br/>
+		</div><!-- /content -->
+
+	</div><!-- /page -->
+
+</body>
+</html>
